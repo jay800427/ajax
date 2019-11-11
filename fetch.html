@@ -26,26 +26,28 @@
 
     //建立FETCH請求及實質內容
     fetch("https://kktix.com/events.json",{method:"GET"})
-    .then(function(response){
+    .then(
+        function(response){
             return response.json()
         }
     )
-    .then(function(data){
+    .then(
+        function(data){
             console.log(data)
             let title=data.title;
-        document.querySelector('.title').innerHTML=title;
-        document.querySelector('H4').innerHTML="更新時間:"+data.updated.substr(0,10);//substr(字串起始,字串的總長度)
-        
-        let dd=data.entry;//定義一個值叫data ,res.entry(從res裡面撈出來的這個entry是筆陣列)
-        let str="";//先定義一個空值
-        dd.forEach(function(event,index){
+            document.querySelector('.title').innerHTML=title
+            document.querySelector("h4").innerHTML="更新時間:"+data.updated.substr(0,10);
+            let dd=data.entry
+            let str="";
+            dd.forEach(function(event,index){
             str=str + `<li><a href="${event.url}">${(index+1)+'. '+event.title}</a> - ${event.content}</li>`;
         })
-        document.querySelector("ul").innerHTML=str;
+            document.querySelector("ul").innerHTML=str;
         }
     )
-    .catch(function(err){//如果有抓到錯誤的話
-            console.log(err)//幫我顯示在控制台那邊
+    .catch(
+        function(err){
+            console.log(err)
         }
     )
     //建立回呼函式(call back function)來處理回應時的各項行為
