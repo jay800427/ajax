@@ -7,6 +7,13 @@
     <title>XMLHttpRequest</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <style>
+    .ul{
+     padding: 5px;
+     box-shadow: 0,0,#ccc;
+     border: 5px;
+    }
+    </style>
 </head>
 <body>
     <h1 class="header">XMLHttpRequest</h1>
@@ -26,14 +33,29 @@
     ********************************************************/
 
     //宣告一個XMLHttpRequest物件
-
+    let xhr =new XMLHttpRequest;
 
     //建立請求的各項設定及實質內容
-
+    xhr.open("GET","https://kktix.com/events.json",true);
 
     //建立得到回應時的各項設定及行為
-
+    xhr.onload=function(){
+        let type=xhr.getResponseHeader("Content-Type");
+        let response=xhr.responseText;
+        let res=JSON.parse(response);
+        console.log(res);
+        let title=res.title;
+        document.querySelector('.title').innerHTML=title;
+        document.querySelector('H4').innerHTML="更新時間:"+res.updated.substr(0,10);//substr(字串起始,字串的總長度)
+        
+        let data=res.entry;//定義一個值叫data ,res.entry(從res裡面撈出來的這個entry是筆陣列)
+        let str="";//先定義一個空值
+        data.forEach(function(event,index){
+            str=str + `<li><a href="${event.url}">${(index+1)+'. '+event.title}</a> - ${event.content}</li>`;
+        })
+        document.querySelector("ul").innerHTML=str;
+    }
 
     //送出請求
-
+    xhr.send();
     </script>
