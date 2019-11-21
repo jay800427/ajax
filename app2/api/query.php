@@ -2,7 +2,7 @@
 //處理查詢資料的請求
 include_once "base.php";
 
-$class='1'. sprintf("%02d",$_GET["class"]);
+$class='1'. sprintf("%02d",$_GET["class"]);//%02d是為了10以下的數字前面整數補0,sprintf( ) 將數字轉成字串
 /* echo $class;
 echo "<br>"; */
 //撈出班級學生
